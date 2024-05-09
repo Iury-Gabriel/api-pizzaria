@@ -29,6 +29,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     })
 })
 
-app.listen({ port: 3333 }, () => {
+app.listen({ port: 3333, host: '0.0.0.0' }, () => {
     console.log('HTTP server running!');
 })
