@@ -6,8 +6,8 @@ import {
 } from "./chunk-WDFZ2WQK.mjs";
 
 // src/services/user/AuthUserService.ts
-import { sign } from "jsonwebtoken";
-import { compare } from "bcryptjs";
+import * as jwt from "jsonwebtoken";
+import * as bcrypt from "bcryptjs";
 var AuthUserService = class {
   execute(_0) {
     return __async(this, arguments, function* ({ email, password }) {
@@ -25,11 +25,11 @@ var AuthUserService = class {
       if (!user) {
         throw new Error("User or password incorrect");
       }
-      const passwordMatch = yield compare(password, user.password);
+      const passwordMatch = yield bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         throw new Error("User or password incorrect");
       }
-      const token = sign(
+      const token = jwt.sign(
         {
           name: user.name,
           email: user.email
