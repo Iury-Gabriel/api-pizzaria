@@ -1,6 +1,6 @@
 import { sign } from "jsonwebtoken";
 import prismaClient from "../../prisma";
-import { compare, hash } from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 
 interface AuthRequest {
     email: string;
@@ -26,7 +26,7 @@ class AuthUserService {
             throw new Error("User or password incorrect")
         }
 
-        const passwordMatch = await compare(password, user.password)
+        const passwordMatch = await bcrypt.compare(password, user.password)
 
         if(!passwordMatch) {
             throw new Error("User or password incorrect")
